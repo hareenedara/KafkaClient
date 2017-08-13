@@ -1,6 +1,7 @@
 package com.samples.transfer;
 
 import com.samples.model.LineData;
+import com.samples.service.ConsumerService;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -16,15 +17,14 @@ public class SampleConsumer {
 
     @Autowired
     KafkaConsumer<Integer,LineData> consumer;
+    @Autowired
+    ConsumerService consumerService;
 
     public void consume() throws InterruptedException {
         while(true) {
-            ConsumerRecords<Integer,LineData> records = consumer.poll(50);
-            for(ConsumerRecord record: records) {
-                System.out.printf("offset = %d, key = %s, value = %s%n", record.offset(), record.key(), ((LineData)record.value()).getLine());
-
-            }
-
+            ConsumerRecords<Integer,LineData> records = consumer.poll(1000);
+            if(records != null)
+                consumerService.service(records);
         }
     }
 }

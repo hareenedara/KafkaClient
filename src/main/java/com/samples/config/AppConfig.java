@@ -10,9 +10,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.Arrays;
 import java.util.Properties;
+import java.util.concurrent.Executor;
 
 /**
  * Created by edara on 8/12/17.
@@ -70,6 +72,14 @@ public class AppConfig {
         properties.put("value.serializer","com.samples.model.LineDataSerializer");
         KafkaProducer<Integer,LineData> producer = new KafkaProducer<>(properties);
         return producer;
+    }
+
+    @Bean
+    public ThreadPoolTaskExecutor threadPoolTaskExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(20);
+        executor.setMaxPoolSize(20);
+        return executor;
     }
 
 

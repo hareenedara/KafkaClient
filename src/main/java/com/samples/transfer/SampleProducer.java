@@ -25,7 +25,7 @@ import java.util.Date;
 
 @Component
 public class SampleProducer {
-    public static final String dataFile = "/Users/edara/Downloads/test.txt";
+    public static final String dataFile = "/Users/edara/Downloads/test1.txt";
     private static final Logger log = LoggerFactory.getLogger(SampleProducer.class);
 
     @Value("${topic.consumer.name}")
@@ -47,7 +47,7 @@ public class SampleProducer {
         reader.close();
     }
 
-    @Scheduled(fixedDelay=1000)
+    @Scheduled(fixedDelay=100)
     public void sendMessages() throws IOException, InterruptedException {
         String msg = "";
 
