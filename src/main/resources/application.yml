@@ -22,11 +22,11 @@ topic:
    consumer:
       name: topic2
       groupId: group2
-      enableAutoCommit: true
+      enableAutoCommit: false
       autoCommitIntervalms: 1000
    com.samples.transfer:
       name: test
       acks: all
       retries: 0
-      batchSize: 1000
+      batchSize: 1
       bufferMemory: 10000000

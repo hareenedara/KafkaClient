@@ -20,11 +20,18 @@ public class SampleConsumer {
     @Autowired
     ConsumerService consumerService;
 
-    public void consume() throws InterruptedException {
+    public void consume() throws Exception {
         while(true) {
             ConsumerRecords<Integer,LineData> records = consumer.poll(1000);
-            if(records != null)
-                consumerService.service(records);
+            for(ConsumerRecord record: records) {
+                    try {
+                        consumerService.service(record);
+                        consumer.commitSync();
+                    }catch(Exception ex) {
+                        System.out.println(ex);
+                    }
+            }
+
         }
     }
 }

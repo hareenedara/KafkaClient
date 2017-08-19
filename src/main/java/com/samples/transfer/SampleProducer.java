@@ -47,7 +47,7 @@ public class SampleProducer {
         reader.close();
     }
 
-    @Scheduled(fixedDelay=100)
+    @Scheduled(fixedDelay=5)
     public void sendMessages() throws IOException, InterruptedException {
         String msg = "";
 

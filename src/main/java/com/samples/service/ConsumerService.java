@@ -11,11 +11,15 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ConsumerService {
-    @Async
-    public void service(ConsumerRecords<Integer,LineData> records) throws InterruptedException {
-        for(ConsumerRecord record: records) {
-            System.out.printf("Thread = %s ,offset = %d, key = %s, value = %s%n",Thread.currentThread().getName(),record.offset(), record.key(), ((LineData)record.value()).getLine());
-            Thread.sleep(1000);
+    //@Async
+    public void service(ConsumerRecord<Integer,LineData> record) throws Exception {
+        Thread.sleep(100);
+
+        if(((Integer) record.key()) == 211 ) {
+            throw new Exception();
         }
+            System.out.printf("Thread = %s ,offset = %d, key = %s, value = %s%n",Thread.currentThread().getName(),record.offset(), record.key(), ((LineData)record.value()).getLine());
+
+
     }
 }
